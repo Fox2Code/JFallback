@@ -34,10 +34,6 @@ test {
 
 assemble.dependsOn(shadowJar)
 
-tasks.withType(JavaCompile).configureEach {
-    options.release = 8
-}
-
 afterEvaluate {
     publishing {
         publications {
