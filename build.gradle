@@ -1,0 +1,54 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+group = 'com.fox2code'
+version = '0.0.1'
+
+repositories {
+    mavenCentral()
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    api 'org.ow2.asm:asm-commons:9.6'
+}
+
+shadowJar {
+    relocate 'org.objectweb.asm', 'com.fox2code.jfallback.asm'
+    manifest {
+        attributes "Main-Class": "com.fox2code.jfallback.Main"
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
+
+assemble.dependsOn(shadowJar)
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 8
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.java
+                groupId = "com.fox2code"
+                artifactId = "JFallback"
+                pom {
+                    url = 'https://github.com/Fox2Code/JFallback'
+                }
+            }
+        }
+    }
+}
