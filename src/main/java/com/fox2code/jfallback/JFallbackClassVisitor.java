@@ -12,7 +12,14 @@ public class JFallbackClassVisitor extends ClassRemapper {
     private final RepackageHelperASM repackageHelperASM;
     private boolean doNothing = false;
     private boolean jfallback = false;
+    /**
+     * Modern java may give private members to package local
+     * classes in some circumstances, as legacy JVM don't do that
+     * this may result in incompatible bytecode if we don't
+     * account for that.
+     */
     private boolean makeLocal = false;
+    private boolean isInterface = false;
     private String name;
 
     public JFallbackClassVisitor(ClassVisitor classVisitor) {
@@ -31,6 +38,7 @@ public class JFallbackClassVisitor extends ClassRemapper {
     @Override
     public void visit(int version, int access, String name, String signature, String superName, String[] interfaces) {
         this.name = name;
+        this.isInterface = (access & Opcodes.ACC_INTERFACE) != 0;
         if (this.repackageHelperASM.processForASMVersion(version)) {
             version = this.repackageHelperASM.asmClassVersionTarget;
             this.doNothing = false;
@@ -51,7 +59,7 @@ public class JFallbackClassVisitor extends ClassRemapper {
     @Override
     public void visitInnerClass(String name, String outerName, String innerName, int access) {
         super.visitInnerClass(name, outerName, innerName, access);
-        if (name.startsWith(this.name)) {
+        if (name.startsWith(this.name) && !this.isInterface && !this.doNothing) {
             this.makeLocal = this.repackageHelperASM.asmClassVersionTarget < Opcodes.V9;
         }
     }
@@ -59,7 +67,9 @@ public class JFallbackClassVisitor extends ClassRemapper {
     @Override
     public void visitOuterClass(String owner, String name, String descriptor) {
         super.visitOuterClass(owner, name, descriptor);
-        this.makeLocal = this.repackageHelperASM.asmClassVersionTarget < Opcodes.V9;
+        if (!this.isInterface && !this.doNothing) {
+            this.makeLocal = this.repackageHelperASM.asmClassVersionTarget < Opcodes.V9;
+        }
     }
 
     @Override

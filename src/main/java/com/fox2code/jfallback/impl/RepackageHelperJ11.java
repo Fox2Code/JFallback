@@ -10,6 +10,12 @@ final class RepackageHelperJ11 extends RepackageHelper.VersionSpecificLoader {
             "java/net/http/"
     ));
     private static final HashSet<String> java11Shims = new HashSet<>(Arrays.asList(
+            "java/lang/String.strip()Ljava/lang/String;",
+            "java/lang/String.stripLeading()Ljava/lang/String;",
+            "java/lang/String.stripTrailing()Ljava/lang/String;",
+            "java/lang/String.isBlank()Z",
+            "java/lang/String.lines()Ljava/util/stream/Stream;",
+            "java/lang/String.repeat(I)Ljava/lang/String;",
             "java/util/Optional.isEmpty()Z",
             "java/io/InputStream.readAllBytes()[B"
     ));
