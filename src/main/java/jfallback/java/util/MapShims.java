@@ -45,6 +45,51 @@ public final class MapShims {
     }
 
     // Added in java 9
+    public static <K, V> Map<K, V> of(K key1, V value1, K key2, V value2, K key3, V value3, K key4, V value4, K key5, V value5,
+                                      K key6, V value6) {
+        HashMap<K, V> hashMap = new HashMap<>();
+        hashMap.put(key1, value1); hashMap.put(key2, value2); hashMap.put(key3, value3); hashMap.put(key4, value4); hashMap.put(key5, value5);
+        hashMap.put(key6, value6);
+        return Collections.unmodifiableMap(hashMap);
+    }
+
+    // Added in java 9
+    public static <K, V> Map<K, V> of(K key1, V value1, K key2, V value2, K key3, V value3, K key4, V value4, K key5, V value5,
+                                      K key6, V value6, K key7, V value7) {
+        HashMap<K, V> hashMap = new HashMap<>();
+        hashMap.put(key1, value1); hashMap.put(key2, value2); hashMap.put(key3, value3); hashMap.put(key4, value4); hashMap.put(key5, value5);
+        hashMap.put(key6, value6); hashMap.put(key7, value7);
+        return Collections.unmodifiableMap(hashMap);
+    }
+
+    // Added in java 9
+    public static <K, V> Map<K, V> of(K key1, V value1, K key2, V value2, K key3, V value3, K key4, V value4, K key5, V value5,
+                                      K key6, V value6, K key7, V value7, K key8, V value8) {
+        HashMap<K, V> hashMap = new HashMap<>();
+        hashMap.put(key1, value1); hashMap.put(key2, value2); hashMap.put(key3, value3); hashMap.put(key4, value4); hashMap.put(key5, value5);
+        hashMap.put(key6, value6); hashMap.put(key7, value7); hashMap.put(key8, value8);
+        return Collections.unmodifiableMap(hashMap);
+    }
+
+    // Added in java 9
+    public static <K, V> Map<K, V> of(K key1, V value1, K key2, V value2, K key3, V value3, K key4, V value4, K key5, V value5,
+                                      K key6, V value6, K key7, V value7, K key8, V value8, K key9, V value9) {
+        HashMap<K, V> hashMap = new HashMap<>();
+        hashMap.put(key1, value1); hashMap.put(key2, value2); hashMap.put(key3, value3); hashMap.put(key4, value4); hashMap.put(key5, value5);
+        hashMap.put(key6, value6); hashMap.put(key7, value7); hashMap.put(key8, value8); hashMap.put(key9, value9);
+        return Collections.unmodifiableMap(hashMap);
+    }
+
+    // Added in java 9
+    public static <K, V> Map<K, V> of(K key1, V value1, K key2, V value2, K key3, V value3, K key4, V value4, K key5, V value5,
+                                      K key6, V value6, K key7, V value7, K key8, V value8, K key9, V value9, K key10, V value10) {
+        HashMap<K, V> hashMap = new HashMap<>();
+        hashMap.put(key1, value1); hashMap.put(key2, value2); hashMap.put(key3, value3); hashMap.put(key4, value4); hashMap.put(key5, value5);
+        hashMap.put(key6, value6); hashMap.put(key7, value7); hashMap.put(key8, value8); hashMap.put(key9, value9); hashMap.put(key10, value10);
+        return Collections.unmodifiableMap(hashMap);
+    }
+
+    // Added in java 9
     @SafeVarargs
     @SuppressWarnings("varargs")
     public static <K, V> Map<K, V> ofEntries(Map.Entry<? extends K, ? extends V>... entries) {
