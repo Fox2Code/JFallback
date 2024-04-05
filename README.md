@@ -9,11 +9,12 @@ and I want to be able to run java11 code on their systems.
 
 This was initially in https://github.com/Fox2Code/FoxLoader
 
-You probably don't need this library if you can control which runtime is used.
+You probably don't need this library if you can control which java runtime is used, which is most of the time.
 
 ## Compatibility
 
-Note: JFallback currently only support up to java11 code.
+Note: JFallback currently only support up to java11 code by default, 
+but can support up to java 17 with `-Djfallback.targetJvmVersion=17` jvm arg.
 
 If something doesn't work, open an issue, I'll probs fix it.
 

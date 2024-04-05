@@ -16,6 +16,7 @@ public final class OptionalShims {
         }
     }
 
+    // Added in java 9
     @SuppressWarnings("unchecked")
     public static  <T> Optional<T> or(Optional<T> optional, Supplier<? extends Optional<? extends T>> supplier) {
         if (optional.isPresent()) {
@@ -23,6 +24,7 @@ public final class OptionalShims {
         } else return (Optional<T>) supplier.get();
     }
 
+    // Added in java 9
     public static <T> Stream<T> stream(Optional<T> optional) {
         if (optional.isPresent()) {
             return Stream.of(optional.get());

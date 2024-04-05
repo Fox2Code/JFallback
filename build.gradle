@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.fox2code'
-version = '0.0.2'
+version = '0.1.0'
 
 repositories {
     mavenCentral()
@@ -20,14 +20,21 @@ java {
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
-    api 'org.ow2.asm:asm-commons:9.6'
+    api 'org.ow2.asm:asm-commons:9.7'
+}
+
+jar {
+    from "LICENSE"
 }
 
 shadowJar {
     relocate 'org.objectweb.asm', 'com.fox2code.jfallback.asm'
     manifest {
         attributes "Main-Class": "com.fox2code.jfallback.Main"
+        attributes "Premain-Class": "com.fox2code.jfallback.Main"
+        attributes "Launcher-Agent-Class": "com.fox2code.jfallback.Main"
     }
+    from "LICENSE"
 }
 
 test {

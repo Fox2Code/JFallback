@@ -1,11 +1,13 @@
 package jfallback.java.nio.file;
 
+import com.fox2code.jfallback.JFallbackClassLoader;
 import com.fox2code.jfallback.JrtFileSystemProvider;
 
 import java.io.IOException;
 import java.net.URI;
 import java.nio.file.FileSystem;
 import java.nio.file.FileSystems;
+import java.nio.file.Path;
 import java.util.Map;
 
 public final class FileSystemsShims {
@@ -18,5 +20,10 @@ public final class FileSystemsShims {
             }
         }
         return FileSystems.newFileSystem(uri, map);
+    }
+
+    // Added in java 13
+    public static FileSystem newFileSystem(Path path) throws IOException {
+        return FileSystems.newFileSystem(path, JFallbackClassLoader.getCompliantSuperParent());
     }
 }

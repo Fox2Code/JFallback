@@ -6,6 +6,8 @@ import org.objectweb.asm.commons.Remapper;
 public final class RepackageHelperASM extends Remapper {
     public static final RepackageHelperASM DEFAULT =
             RepackageHelperASM.getFrom(RepackageHelper.DEFAULT);
+    public static final RepackageHelperASM RECURSIVE =
+            RepackageHelperASM.getFrom(RepackageHelper.RECURSIVE);
     private final RepackageHelper repackageHelper;
     public final int asmClassVersionTarget;
     public final int asmClassVersionMaximum;
@@ -18,9 +20,18 @@ public final class RepackageHelperASM extends Remapper {
                 .jvmAsmVersionFromVersionInt(repackageHelper.maxBytecodeTarget);
     }
 
+    public RepackageHelper getRepackageHelper() {
+        return this.repackageHelper;
+    }
+
     @Override
     public String map(String internalName) {
         return this.repackageHelper.asmRepackage(internalName);
+    }
+
+    @Override
+    public String mapMethodName(String owner, String name, String descriptor) {
+        return this.repackageHelper.asmRenameMethod(owner, name, descriptor);
     }
 
     public boolean processForASMVersion(int asmVersion) {
@@ -28,8 +39,16 @@ public final class RepackageHelperASM extends Remapper {
                 asmVersion <= this.asmClassVersionMaximum;
     }
 
+    public boolean isNoOP() {
+        return this.asmClassVersionTarget >= this.asmClassVersionMaximum;
+    }
+
     public boolean shimCall(String owner, String name, String desc) {
         return this.repackageHelper.fallbackShims.contains(owner + "." + name + desc);
+    }
+
+    public boolean shimInit(String owner) {
+        return this.repackageHelper.fallbackInitShims.contains(owner);
     }
 
     public static RepackageHelperASM getFrom(RepackageHelper repackageHelper) {
@@ -45,6 +64,10 @@ public final class RepackageHelperASM extends Remapper {
         switch (jvmVersion) {
             default:
                 throw new IllegalArgumentException("Unsupported version: " + jvmVersion);
+            case 3:
+                return Opcodes.V1_3;
+            case 4:
+                return Opcodes.V1_4;
             case 5:
                 return Opcodes.V1_5;
             case 6:

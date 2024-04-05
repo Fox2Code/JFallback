@@ -10,6 +10,7 @@ final class RepackageHelperJ11 extends RepackageHelper.VersionSpecificLoader {
             "java/net/http/"
     ));
     private static final HashSet<String> java11Shims = new HashSet<>(Arrays.asList(
+            "java/lang/Character.toString(I)Ljava/lang/String;",
             "java/lang/String.strip()Ljava/lang/String;",
             "java/lang/String.stripLeading()Ljava/lang/String;",
             "java/lang/String.stripTrailing()Ljava/lang/String;",
@@ -17,7 +18,14 @@ final class RepackageHelperJ11 extends RepackageHelper.VersionSpecificLoader {
             "java/lang/String.lines()Ljava/util/stream/Stream;",
             "java/lang/String.repeat(I)Ljava/lang/String;",
             "java/util/Optional.isEmpty()Z",
-            "java/io/InputStream.readAllBytes()[B"
+            "java/util/OptionalDouble.isEmpty()Z",
+            "java/util/OptionalInt.isEmpty()Z",
+            "java/util/Collection.toArray(Ljava/util/function/IntFunction;)[Ljava/lang/Object;",
+            "java/util/List.toArray(Ljava/util/function/IntFunction;)[Ljava/lang/Object;",
+            "java/util/Set.toArray(Ljava/util/function/IntFunction;)[Ljava/lang/Object;",
+            "java/io/InputStream.readAllBytes()[B",
+            "java/nio/file/Path.of(Ljava/lang/String;[Ljava/lang/String;)Ljava/nio/file/Path;",
+            "java/nio/file/Path.of(Ljava/net/URI;)Ljava/nio/Path;"
     ));
 
     @Override
