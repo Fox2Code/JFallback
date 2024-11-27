@@ -2,6 +2,14 @@
 
 Run modern java code on java8
 
+## Important note
+
+I decided to switch to [JvmDowngrader](https://github.com/unimined/JvmDowngrader), and contributed over there to deduplicate efforts.  
+
+I already contributed areas where JFallback was in advance over there, so it should offer **better** application compatibility in general.
+
+You can expect me to no longer work on JFallback and instead bring all the efforts over on [JvmDowngrader](https://github.com/unimined/JvmDowngrader) instead.
+
 ## Why?
 
 Because I cannot expect users to be able to install anything newer than java8, 
